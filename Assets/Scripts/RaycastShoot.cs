@@ -11,68 +11,21 @@ public class RaycastShoot : MonoBehaviour
     private ParticleSystem hitEffect;
     [SerializeField]
     private TrailRenderer tracerEffect;
-    [SerializeField]
-    private Transform target;
+    public Transform target;
     [SerializeField]
     private Transform raycastOrigin;
-    [SerializeField]
-    private Transform crosshair;
-    [SerializeField]
-    private float fireRate;
+    public Transform crosshair;
+    public float fireRate;
+    public int maxBulletsInLoad = 30;
 
-    private PlayerInput playerInput;
-    private InputAction shootAction;
     private Ray ray;
     private RaycastHit hitInfo;
-    private bool isFiring = false;
-    private float accumulatedTime;
-    private float interval;
     // Start is called before the first frame update
     private void Awake()
     {
-        playerInput = GetComponent<PlayerInput>();
-        shootAction = playerInput.actions["Shoot"];
-        interval = 1 / fireRate;
-        accumulatedTime = interval;
+
     }
-
-    private void OnEnable()
-    {
-        shootAction.performed += _ => StartFiring();
-        shootAction.canceled += _ => StopFiring();
-    }
-
-    private void OnDisable()
-    {
-        shootAction.performed -= _ => StartFiring();
-        shootAction.canceled -= _ => StopFiring();
-    }
-
-    private void StartFiring()
-    {
-        isFiring = true;
-    }
-
-    private void StopFiring()
-    {
-        isFiring = false;
-    }
-
-
-
-    private void GunShoot()
-    {
-        //while (accumulatedTime <= 0f)
-        //{
-        //    //FireShoot();
-        //    Debug.Log("Shoot");
-        //    accumulatedTime = interval;
-        //}
-        //accumulatedTime -= Time.deltaTime;
-        Debug.Log(isFiring);
-    }
-
-    private void FireShoot()
+    public void FireShoot()
     {
         foreach (var muzzleFlash in muzzleFlashs)
         {
@@ -99,20 +52,6 @@ public class RaycastShoot : MonoBehaviour
             }
 
             else tracer.transform.position = crosshair.position;
-        }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if(isFiring)
-        {
-            while(accumulatedTime <= 0f)
-            {
-                FireShoot();
-                accumulatedTime = interval;
-            }
-            accumulatedTime -= Time.deltaTime;
         }
     }
 }
