@@ -18,6 +18,8 @@ public class RaycastShoot : MonoBehaviour
     public float fireRate;
     public int maxBulletsInLoad = 30;
 
+    public AnimationClip weaponAnimation;
+
     private Ray ray;
     private RaycastHit hitInfo;
     // Start is called before the first frame update

@@ -11,6 +11,5 @@ public class WeaponPickup : MonoBehaviour
         ActiveWeapon activeWeapon = other.GetComponent<ActiveWeapon>();
         RaycastShoot weapon = Instantiate(weaponPrefab);
         activeWeapon.Equip(weapon);
-        Debug.Log(other.name);
     }
 }

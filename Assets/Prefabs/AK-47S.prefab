@@ -9934,6 +9934,8 @@ MonoBehaviour:
   raycastOrigin: {fileID: 2514666334065208917}
   crosshair: {fileID: 0}
   fireRate: 10
+  maxBulletsInLoad: 30
+  weaponAnimation: {fileID: 7400000, guid: 7975a520f30844f498e4bd15c8e58e66, type: 2}
 --- !u!114 &3691912827332994763
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -214,6 +214,9 @@ namespace StarterAssets
             CinemachineCameraTarget.transform.rotation = Quaternion.Euler(_cinemachineTargetPitch + CameraAngleOverride,
                 _cinemachineTargetYaw, 0.0f);
 
+            transform.rotation = Quaternion.Euler(_cinemachineTargetPitch + CameraAngleOverride,
+                _cinemachineTargetYaw, 0.0f);
+
         }
 
         private void Move()
@@ -265,8 +268,8 @@ namespace StarterAssets
                 float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation, ref _rotationVelocity,
                     RotationSmoothTime);
 
-                // rotate to face input direction relative to camera position
-                transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
+            // rotate to face input direction relative to camera position
+            //transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
             //}
 
 
