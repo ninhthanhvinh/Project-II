@@ -14,6 +14,7 @@ public class ObjectMove : MonoBehaviour
     GameObject m_makedObject;
     public float MaxLength;
     public float DestroyTime2;
+    public float dmg;
     float m_scalefactor;
 
     private void Start()
@@ -47,6 +48,14 @@ public class ObjectMove : MonoBehaviour
     {
         m_makedObject = Instantiate(m_hitObject, hit.point, Quaternion.LookRotation(hit.normal)).gameObject;
         Destroy(m_makedObject, DestroyTime2);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.GetComponent<IDamageable>() != null)
+        {
+            other.GetComponent<IDamageable>().GetDamage(dmg);
+        }
     }
 
 }

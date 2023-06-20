@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8342571604757819660}
   - component: {fileID: 1005100739538947199}
   - component: {fileID: 2419450685416304913}
+  - component: {fileID: 4433447165008890445}
   m_Layer: 0
   m_Name: Effect_30_SwordForce
   m_TagString: Untagged
@@ -54,6 +55,7 @@ MonoBehaviour:
     type: 3}
   MaxLength: 0.5
   DestroyTime2: 0.3
+  dmg: 0
 --- !u!114 &2419450685416304913
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -67,6 +69,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifetime: 5
+--- !u!135 &4433447165008890445
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8268945509411666694}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 3.8461256
+  m_Center: {x: 0, y: -0.028375387, z: -2.91}
 --- !u!1001 &1782311681011013329
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -74,6 +89,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8342571604757819660}
     m_Modifications:
+    - target: {fileID: 3493622148481707557, guid: ba89411cc327e4744bb228c14d7ee984,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3493622148895515830, guid: ba89411cc327e4744bb228c14d7ee984,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3493622149096074231, guid: ba89411cc327e4744bb228c14d7ee984,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3493622149288228308, guid: ba89411cc327e4744bb228c14d7ee984,
         type: 3}
       propertyPath: m_RootOrder

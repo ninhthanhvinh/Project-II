@@ -7,6 +7,8 @@ public class PowerUp : Abilities
     public GameObject VFX;
     public float buffTime;
 
+    protected float timer;
+    protected bool canUse;
     private void Start()
     {
         boss = GetComponent<Boss>();
@@ -17,7 +19,7 @@ public class PowerUp : Abilities
 
     public override void GetUse()
     {
-        if (boss.mana <= manaConsumed)
+        if (boss.mana <= manaConsumed || !canUse)
         {
             return;
         }
@@ -27,6 +29,9 @@ public class PowerUp : Abilities
         boss.mana -= manaConsumed;
         //Buff HP, Armor, ...
         Invoke(nameof(Debuff), buffTime);
+        canUse = false;
+        timer = CD;
+
 
     }
 
@@ -34,6 +39,16 @@ public class PowerUp : Abilities
     {
         boss.speed /= 2;
         //Debuff HP, Armor, ...
+
+    }
+
+    private void Update()
+    {
+        timer -= Time.deltaTime;
+        if (timer <= 0)
+        {
+            canUse = true;
+        }
 
     }
 }

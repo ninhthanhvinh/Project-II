@@ -46,9 +46,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c08ccbaa5db433f4fb5267e637ba875b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponName: pistol
   muzzleFlashs:
   - {fileID: 3620873408708473889}
   - {fileID: 2973274130005550268}
+  dmgPerBullet: 30
   hitEffect: {fileID: 6998847775045334893}
   tracerEffect: {fileID: 4248827447793293126, guid: d2e995aa93412124f9ecce3f11f352a7,
     type: 3}
@@ -57,7 +59,6 @@ MonoBehaviour:
   crosshair: {fileID: 0}
   fireRate: 5
   maxBulletsInLoad: 8
-  weaponAnimation: {fileID: 7400000, guid: 567423548cc4b4b45aaf61fe0b048d54, type: 2}
 --- !u!114 &1837878775756723121
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -8,18 +8,27 @@ public class PlanetStrike : Abilities
     public GameObject planet;
     private Transform player;
 
+    protected float timer;
+    protected bool canUse;
 
     private void Update()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        timer -= Time.deltaTime;
+        if (timer <= 0)
+        {
+            canUse = true;
+        }
     }
     public override void GetUse()
     {
-        if (boss.mana > manaConsumed)
+        if (boss.mana > manaConsumed && canUse)
         {
             anim.SetTrigger("casting");
             Instantiate(VFX, transform.position, transform.rotation);
             boss.mana -= manaConsumed;
+            timer = CD;
+            canUse = false;
         }
     }
 

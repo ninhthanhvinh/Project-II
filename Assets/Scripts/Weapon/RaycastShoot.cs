@@ -5,8 +5,11 @@ using UnityEngine.InputSystem;
 
 public class RaycastShoot : MonoBehaviour
 {
+    public string weaponName;
     [SerializeField]
     private ParticleSystem[] muzzleFlashs;
+    [SerializeField]
+    private float dmgPerBullet;
     [SerializeField]
     private ParticleSystem hitEffect;
     [SerializeField]
@@ -17,8 +20,6 @@ public class RaycastShoot : MonoBehaviour
     public Transform crosshair;
     public float fireRate;
     public int maxBulletsInLoad = 30;
-
-    public AnimationClip weaponAnimation;
 
     private Ray ray;
     private RaycastHit hitInfo;
@@ -51,6 +52,11 @@ public class RaycastShoot : MonoBehaviour
                 hitEffect.Emit(1);
 
                 tracer.transform.position = hitInfo.point;
+
+                if (hitInfo.collider.GetComponent<IDamageable>() != null)
+                {
+                    hitInfo.collider.GetComponent<IDamageable>().GetDamage(dmgPerBullet);
+                }
             }
 
             else tracer.transform.position = crosshair.position;

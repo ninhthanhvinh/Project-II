@@ -20,6 +20,9 @@ public class ObjectMoveDestroy : MonoBehaviour
     public bool isShieldActive = false;
     public bool isHitMake = true;
 
+    public float dmg;
+    public float explosionRange;
+
     float time;
     bool ishit;
     float m_scalefactor;
@@ -55,6 +58,7 @@ public class ObjectMoveDestroy : MonoBehaviour
         if (isHitMake == false)
             return;
         m_makedObject = Instantiate(m_hitObject, hit.point, Quaternion.LookRotation(hit.normal)).gameObject;
+        CauseDamage(hit.point, dmg, explosionRange);
         m_makedObject.transform.parent = transform.parent;
         m_makedObject.transform.localScale = new Vector3(1, 1, 1);
     }
@@ -64,6 +68,7 @@ public class ObjectMoveDestroy : MonoBehaviour
         if (isHitMake == false)
             return;
         m_makedObject = Instantiate(m_hitObject, point.transform.position, point.rotation).gameObject;
+        CauseDamage(point.transform.position, dmg, explosionRange);
         m_makedObject.transform.parent = transform.parent;
         m_makedObject.transform.localScale = new Vector3(1, 1, 1);
     }
@@ -88,5 +93,17 @@ public class ObjectMoveDestroy : MonoBehaviour
         Destroy(this.gameObject);
         Destroy(m_gameObjectTail, TailDestroyTime);
         Destroy(m_makedObject, HitObjectDestroyTime);
+    }
+
+    void CauseDamage(Vector3 position, float damage, float range)
+    {
+        Collider[] inRange = Physics.OverlapSphere(position, range);
+        foreach (Collider targer in inRange)
+        {
+            if (targer.GetComponent<IDamageable>() != null)
+            {
+                targer.GetComponent<IDamageable>().GetDamage(damage);
+            }
+        }
     }
 }

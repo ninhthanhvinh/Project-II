@@ -7,7 +7,7 @@ namespace BehaviorDesigner.Runtime.Tasks
 {
     public class MoveTowards : Action
     {
-        public float speed = 10;
+        public float speed;
         public float attackRange;
         public SharedTransform target;
         public SharedTransform self;
@@ -25,9 +25,12 @@ namespace BehaviorDesigner.Runtime.Tasks
             if (Vector3.SqrMagnitude(self.Value.position - target.Value.position) >= attackRange)
             {
                 // We haven't reached the target yet so keep moving towards it
+                navMeshAgent.speed = speed;
                 navMeshAgent.SetDestination(target.Value.position);
                 return TaskStatus.Running;
             }
+
+            navMeshAgent.SetDestination(transform.position);
             return TaskStatus.Success;
         }
     }

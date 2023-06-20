@@ -26,6 +26,7 @@ public class Boss : MonoBehaviour, IDamageable
     Vector2 smoothDeltaPosition = Vector2.zero;
     Vector2 velocity = Vector2.zero;
     BehaviorTree tree;
+    Rigidbody rb;
 
     // Start is called before the first frame update
     void Start()
@@ -33,6 +34,7 @@ public class Boss : MonoBehaviour, IDamageable
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
         tree = GetComponent<BehaviorTree>();
+        rb = GetComponent<Rigidbody>();
         currentHealth = maxHealth;
         mana = maxMana;
     }
@@ -40,13 +42,19 @@ public class Boss : MonoBehaviour, IDamageable
     // Update is called once per frame
     void Update()
     {
-        Move();
+        //Move();
         agent.speed = speed;
         Vector3 lookVector = player.transform.position - transform.position;
         lookVector.y = transform.position.y;
         Quaternion rot = Quaternion.LookRotation(lookVector);
         transform.rotation = Quaternion.Slerp(transform.rotation, rot, 1);
 
+        if (rb.velocity.magnitude > 0f)
+        {
+            anim.SetBool("isMoving", true);
+        }
+        else
+            anim.SetBool("isMoving", false);
         if (mana > maxMana)
         {
             mana = maxMana;
@@ -59,35 +67,8 @@ public class Boss : MonoBehaviour, IDamageable
         }
         cdManaReg_timer -= Time.deltaTime;
 
-        tree.GetVariable("Mana").SetValue(mana);
-    }
-
-    private void Move()
-    {
-        if (Vector3.Distance(transform.position, player.position) < 5f)
-        {
-            agent.SetDestination(transform.position);
-        }
-        else agent.SetDestination(player.position);
-        Vector3 worldDeltaPos = agent.destination - transform.position;
-
-        // Map 'worldDeltaPosition' to local space
-        float dx = Vector3.Dot(transform.right, worldDeltaPos);
-        float dy = Vector3.Dot(transform.forward, worldDeltaPos);
-        Vector2 deltaPosition = new Vector2(dx, dy);
-
-        // Low-pass filter the deltaMove
-        float smooth = Mathf.Min(1.0f, Time.deltaTime / 0.15f);
-        smoothDeltaPosition = Vector2.Lerp(smoothDeltaPosition, deltaPosition, smooth);
-
-        // Update velocity if time advances
-        if (Time.deltaTime > 1e-5f)
-            velocity = smoothDeltaPosition / Time.deltaTime;
-
-        bool shouldMove = velocity.magnitude > 0.5f && agent.remainingDistance > agent.radius;
-
-        // Update animation parameters
-        anim.SetBool("isMoving", shouldMove);
+        tree.GetVariable("Mana").SetValue(mana); 
+        tree.GetVariable("Health").SetValue(currentHealth);
     }
 
     public void GetDamage(float dmg)
