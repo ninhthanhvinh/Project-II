@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEditor.Animations;
 
 public class ActiveWeapon : MonoBehaviour
 {
@@ -108,6 +105,7 @@ public class ActiveWeapon : MonoBehaviour
         weapon.transform.localPosition = Vector3.zero;
         weapon.transform.localRotation = Quaternion.identity;
         rigController.Play("equip_" + weapon.weaponName);
+        Debug.Log(rigController.GetCurrentAnimatorClipInfo(0).ToString());
         Invoke(nameof(SetAnimationDelayed), 0.001f);
     }
 
